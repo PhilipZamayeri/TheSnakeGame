@@ -3,7 +3,6 @@ import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +15,9 @@ import java.util.Random;
  * Project: TheSnakeGame
  * Copyright: MIT
  */
-public class GameBoard extends JPanel /*implements IBoard*/ {
+public class GameBoard extends JPanel implements IBoard {
     JPanel scorePanel = new JPanel();
+    JPanel basePanel = new JPanel();
     JLabel scoreTxt = new JLabel("Score: ");
     Layout position;
 
@@ -27,40 +27,77 @@ public class GameBoard extends JPanel /*implements IBoard*/ {
     List<Layout> snake = new ArrayList<>();
     JLabel[][] labels = new JLabel[rows][columns];
 
-    Layout apple = new Layout(0,0);
+    Layout apple = new Layout(0, 0);
     int lengthOfSnake = 3;
     Boolean haveEaten = false;
-    char direction = 'E';
+    char direction;
     boolean moved = true;
     int point = 1;
     int score = 0;
 
     JLabel showScore = new JLabel("Score: " + score);
-    String bodyPart = '\u25A1'+"";
-    String appleBit = '\u03CC'+"";
+    String bodyPart = '\u2584' + "";
+    String appleBit = '\u2058' + "";
 
     javax.swing.Timer timer; // Ambition att byta till Timer
     //Timer timer;
 
+    static final String VK_LEFT = "VK_LEFT";
+    static final String VK_RIGHT = "VK_RIGHT";
+    static final String VK_DOWN = "VK_DOWN";
+    static final String VK_UP = "VK_UP";
+
+    private GuiHandler guiHandler;
 
     public GameBoard(GuiHandler guiHandler) {
+        this.guiHandler = guiHandler;
+        addLabels();
         board(guiHandler);
+        snake.clear();
+        createSnake();
+        markStartPosition();
+        shuffleApplePosition();
+        setKeyBindings();
+
+        ActionListener time = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                move(direction,position);
+                moved = true;
+                updateSnake();
+            }
+        };
+        timer = new javax.swing.Timer(100, time);
+        timer.start();
+    }
+    private void setKeyBindings() {
+        ActionMap actionMap = getActionMap();
+        InputMap inputMap = getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), VK_LEFT);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), VK_RIGHT);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), VK_UP);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), VK_DOWN);
+
+        actionMap.put(VK_LEFT, new KeyAction(VK_LEFT));
+        actionMap.put(VK_RIGHT, new KeyAction(VK_RIGHT));
+        actionMap.put(VK_UP, new KeyAction(VK_UP));
+        actionMap.put(VK_DOWN, new KeyAction(VK_DOWN));
+    }
+    @Override
+    public void board(GuiHandler guiHandler) {
+        basePanel.setLayout(new GridLayout(rows, columns));
+        setLayout(new BorderLayout());
+        add(scorePanel, BorderLayout.NORTH);
+        add(basePanel, BorderLayout.CENTER);
+        //basePanel.setBackground(Color.black);
+        scorePanel.add(scoreTxt);
     }
 
-//    @Override
-//    public void board(GuiHandler guiHandler) {
-//        basePanel.setLayout(new GridLayout(rows, columns));
-//        setLayout(new BorderLayout());
-//        add(scorePanel, BorderLayout.NORTH);
-//        add(basePanel, BorderLayout.CENTER);
-//        scorePanel.add(scoreTxt);
-//    }
-
     public void move(char direction, Layout position) {
-        if (direction == 'N') position.row--;
-        if (direction == 'S') position.row++;
-        if (direction == 'W') position.column--;
-        if (direction == 'E') position.column++;
+        if (direction == 'U') position.row--;
+        if (direction == 'D') position.row++;
+        if (direction == 'L') position.column--;
+        if (direction == 'R') position.column++;
     }
 
     public void addLabels() {
@@ -71,7 +108,7 @@ public class GameBoard extends JPanel /*implements IBoard*/ {
                 labels[i][j].setMinimumSize(new Dimension(unitSize, unitSize));
                 labels[i][j].setMaximumSize(new Dimension(unitSize, unitSize));
                 labels[i][j].setPreferredSize(new Dimension(unitSize, unitSize));
-                labels[i][j].setFont(new Font("Verdana", Font.BOLD, 20)); // sätt till 20 om border nyttjas
+                labels[i][j].setFont(new Font("Andale Mono", Font.BOLD, 20)); // sätt till 20 om border nyttjas
                 basePanel.add(labels[i][j]);
             }
         }
@@ -83,15 +120,14 @@ public class GameBoard extends JPanel /*implements IBoard*/ {
             if (i == lengthOfSnake - 1) position = new Layout(snake.get(i));
         }
     }
-    public void markStartPosition(){
-        for (int i = 0; i < snake.size() ; i++) {
+
+    public void markStartPosition() {
+        for (int i = 0; i < snake.size(); i++) {
             var row = snake.get(i).row;
             var column = snake.get(i).column;
             labels[row][column].setText(bodyPart);
-
         }
-        direction = 'E';
-
+        direction = 'R';
     }
 
     public void shuffleApplePosition() {
@@ -109,19 +145,6 @@ public class GameBoard extends JPanel /*implements IBoard*/ {
         labels[apple.row][apple.column].setForeground(Color.red);
     }
 
-    public void changeDirection(int keyStroke) {
-        if(moved) {
-            if (keyStroke == KeyEvent.VK_UP && direction != 'S') direction = 'N';
-            else if (keyStroke == KeyEvent.VK_DOWN && direction != 'N') direction = 'S';
-            else if (keyStroke == KeyEvent.VK_LEFT && direction != 'E') direction = 'W';
-            else if (keyStroke == KeyEvent.VK_RIGHT && direction != 'W') direction = 'E';
-        }
-        moved = false;
-        if (!moved) {
-//            gameOver();
-        }
-    }
-
     public void updateSnake() {
         if (position.isEqualsTo(apple)) {
             haveEaten = true;
@@ -137,24 +160,26 @@ public class GameBoard extends JPanel /*implements IBoard*/ {
             snake.remove(0);
         }
 
-        try {
-            if(labels[position.row][position.column].getText().equals(bodyPart)){
-                JOptionPane.showMessageDialog(null,"Nu gick du visst in i dig själv.\nDin Score: "+score);
+        try { //läggs i en egen metod istället för try+catch
+            if (labels[position.row][position.column].getText().equals(bodyPart)) { //går in i sig själv
+                JOptionPane.showMessageDialog(null, "Game over! \nYour Score: " + score);
                 reset();
+                guiHandler.changeToGameOverBoard();
             }
             labels[position.row][position.column].setText(bodyPart);
-        } catch (IndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(null,"Nu gick du visst utanför banan.\nDin Score: "+score);
+        } catch (IndexOutOfBoundsException e) { //går in i väggen
+            JOptionPane.showMessageDialog(null, "Game over! \nYour Score: " + score);
             reset();
+            guiHandler.changeToGameOverBoard();
         }
     }
 
-    public void addPoint(){
+    public void addPoint() {
         score += point;
         showScore.setText("Score: " + score);
     }
 
-    public void reset(){
+    public void reset() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 labels[i][j].setText("");
@@ -167,6 +192,38 @@ public class GameBoard extends JPanel /*implements IBoard*/ {
         timer.stop();
         score = -1;
         addPoint();
+    }
+    private class KeyAction extends AbstractAction {
+        public KeyAction(String actionCommand) {
+            putValue(ACTION_COMMAND_KEY, actionCommand);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent actionEvt) {
+            switch (actionEvt.getActionCommand()) {
+                case VK_LEFT:
+                    if (direction != 'R') {
+                        direction = 'L';
+                    }
+                    break;
+                case VK_RIGHT:
+                    if (direction != 'L') {
+                        direction = 'R';
+                    }
+                    break;
+                case VK_UP:
+                    if (direction != 'D') {
+                        direction = 'U';
+                    }
+                    break;
+                case VK_DOWN:
+                    if (direction != 'U') {
+                        direction = 'D';
+                    }
+                    break;
+            }
+            System.out.println(actionEvt.getActionCommand() + " pressed");
+        }
     }
 
 }
