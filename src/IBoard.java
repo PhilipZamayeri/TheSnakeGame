@@ -1,3 +1,3 @@
 public interface IBoard {
-    public void board(Guihandler guihandler);
+    public void board(GuiHandler guiHandler);
 }
