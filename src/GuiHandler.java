@@ -7,12 +7,13 @@ import java.awt.*;
         public GuiHandler(){
             mainPanel.add(new StartBoard(this));
             mainPanel.setSize(500,500);
-            add(mainPanel);
             setTitle("Snake");
-            setVisible(true);
             setDefaultCloseOperation(EXIT_ON_CLOSE);
             setLocationRelativeTo(null);
+            setResizable(false);
             setSize(500,500);
+            add(mainPanel);
+            setVisible(true);
 
         }
 

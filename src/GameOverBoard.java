@@ -14,8 +14,9 @@ public class GameOverBoard extends JPanel implements IBoard {
 
     public GameOverBoard(GuiHandler guiHandler) {
         board(guiHandler);
-    }
 
+
+    }
 
     @Override
     public void board(GuiHandler guiHandler) {
