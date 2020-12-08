@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Philip Zamayeri
@@ -9,7 +11,30 @@ import java.awt.*;
  * Copyright: MIT
  */
 public class GameBoard extends JPanel implements IBoard {
-    JButton newGame = new JButton("to Game over board");
+    JPanel scorePanel = new JPanel();
+    JLabel scoreTxt = new JLabel("Score: ");
+    Layout position;
+
+    int rows = 25;
+    int columns = 25;
+    int unitSize = 25;
+    List<Layout> snake = new ArrayList<>();
+    JLabel[][] labels = new JLabel[rows][columns];
+
+    Layout apple = new Layout(0,0);
+    int lengthOfSnake = 3;
+    Boolean haveEaten = false;
+    char direction = 'E';
+    boolean moved = true;
+    int point = 1;
+    int score = 0;
+
+    JLabel showScore = new JLabel("Score: " + score);
+    String bodyPart = '\u25A1'+"";
+    String appleBit = '\u03CC'+"";
+
+    javax.swing.Timer timer; // Ambition att byta till Timer
+    //Timer timer;
 
 
     public GameBoard(GuiHandler guiHandler) {
@@ -18,15 +43,10 @@ public class GameBoard extends JPanel implements IBoard {
 
     @Override
     public void board(GuiHandler guiHandler) {
-        setLayout(null);
-        setBackground(Color.BLACK);
-
-        newGame.setBounds(100, 200, 300, 50);
-        setVisible(true);
+        setLayout(new BorderLayout());
+        add(scorePanel, BorderLayout.NORTH);
+        scorePanel.add(scoreTxt);
 
 
-
-        newGame.addActionListener(e -> guiHandler.changeToGameOverBoard());
-        add(newGame);
     }
 }

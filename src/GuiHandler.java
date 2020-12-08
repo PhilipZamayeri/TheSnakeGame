@@ -13,6 +13,7 @@ import java.awt.*;
             setDefaultCloseOperation(EXIT_ON_CLOSE);
             setLocationRelativeTo(null);
             setSize(500,500);
+
         }
 
         public void changeToGameBoard(){
