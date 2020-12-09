@@ -40,14 +40,14 @@ public class GameLogic {
         }
     }
 
-//    public void markStartPosition() {
-//        for (int i = 0; i < snake.size(); i++) {
-//            var row = snake.get(i).row;
-//            var column = snake.get(i).column;
-//            labels[row][column].setText(bodyPart);
-//        }
-//        direction = 'R';
-//    }
+    public void markStartPosition(JLabel[][]labels) {
+        for (int i = 0; i < snake.size(); i++) {
+            var row = snake.get(i).row;
+            var column = snake.get(i).column;
+            labels[row][column].setText(bodyPart);
+        }
+        direction = 'R';
+    }
 
     public void shuffleApplePosition(JLabel[][] labels,int rows, int columns) {
         labels[apple.row][apple.column].setForeground(null);
@@ -97,5 +97,18 @@ public class GameLogic {
         score += point;
         showScore.setText("Score: " + score);
     }
-
+//    public void reset(JLabel[][]labels, int rows, int columns) {
+//        for (int i = 0; i < rows; i++) {
+//            for (int j = 0; j < columns; j++) {
+//                labels[i][j].setText("");
+//            }
+//        }
+//        snake.clear();
+//        createSnake();
+//        markStartPosition(labels);
+//        shuffleApplePosition(labels,rows,columns);
+//        gameBoard.timer.stop();
+//        score = -1;
+//        addPoint();
+//    }
 }

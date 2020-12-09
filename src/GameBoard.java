@@ -56,7 +56,7 @@ public class GameBoard extends JPanel implements IBoard {
         board(guiHandler);
         gl.snake.clear();
         gl.createSnake();
-        markStartPosition();
+        gl.markStartPosition(labels);
         gl.shuffleApplePosition(labels, rows, columns);
         setKeyBindings();
 
@@ -122,14 +122,14 @@ public class GameBoard extends JPanel implements IBoard {
 //        }
 //    }
 //
-    public void markStartPosition() {
-        for (int i = 0; i < gl.snake.size(); i++) {
-            var row = gl.snake.get(i).row;
-            var column = gl.snake.get(i).column;
-            labels[row][column].setText(gl.bodyPart);
-        }
-        gl.direction = 'R';
-    }
+//    public void markStartPosition() {
+//        for (int i = 0; i < gl.snake.size(); i++) {
+//            var row = gl.snake.get(i).row;
+//            var column = gl.snake.get(i).column;
+//            labels[row][column].setText(gl.bodyPart);
+//        }
+//        gl.direction = 'R';
+//    }
 //
 //    public void shuffleApplePosition() {
 //        labels[apple.row][apple.column].setForeground(null);
@@ -188,7 +188,7 @@ public class GameBoard extends JPanel implements IBoard {
         }
         gl.snake.clear();
         gl.createSnake();
-        markStartPosition();
+        gl.markStartPosition(labels);
         gl.shuffleApplePosition(labels,rows,columns);
         timer.stop();
         gl.score = -1;
