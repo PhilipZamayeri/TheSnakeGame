@@ -14,6 +14,10 @@ import java.util.Random;
  * Copyright: MIT
  */
 public class GameLogic {
+//    List<Layout> snake = new ArrayList<>();
+//    int lengthOfSnake = 3;
+//    GameBoard gb = new GameBoard();
+    Layout position;
 
     public void move(char direction, Layout position) {
         if (direction == 'U') position.row--;
@@ -51,5 +55,11 @@ public class GameLogic {
         labels[apple.row][apple.column].setText(appleBit);
         labels[apple.row][apple.column].setForeground(Color.red);
     }
+//    public void createSnake(int lengthOfSnake, List<Layout> snake, Layout position) {
+//        for (int i = 0; i < lengthOfSnake; i++) {
+//            snake.add(new Layout(0, i));
+//            if (i == lengthOfSnake - 1) position = new Layout(snake.get(i));
+//        }
+//    }
 
 }

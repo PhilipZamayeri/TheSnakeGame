@@ -50,12 +50,16 @@ public class GameBoard extends JPanel implements IBoard {
 
     private GuiHandler guiHandler;
 
+    GameBoard(){}
+
+//    public GameBoard(GuiHandler guiHandler){}
+
     public GameBoard(GuiHandler guiHandler) {
         this.guiHandler = guiHandler;
         gl.addLabels(basePanel, labels, rows, columns, unitSize);
         board(guiHandler);
         snake.clear();
-        createSnake();
+        gl.createSnake(lengthOfSnake, snake, position);
         markStartPosition();
         gl.shuffleApplePosition(labels, apple, position, appleBit, rows, columns);
         setKeyBindings();
@@ -63,7 +67,7 @@ public class GameBoard extends JPanel implements IBoard {
         ActionListener time = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gl.move(direction,position);
+                gl.move(direction, position);
                 moved = true;
                 updateSnake();
             }
@@ -71,6 +75,9 @@ public class GameBoard extends JPanel implements IBoard {
         timer = new javax.swing.Timer(100, time);
         timer.start();
     }
+
+
+
     private void setKeyBindings() {
         ActionMap actionMap = getActionMap();
         InputMap inputMap = getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -84,6 +91,7 @@ public class GameBoard extends JPanel implements IBoard {
         actionMap.put(VK_UP, new KeyAction(VK_UP));
         actionMap.put(VK_DOWN, new KeyAction(VK_DOWN));
     }
+
     @Override
     public void board(GuiHandler guiHandler) {
         basePanel.setLayout(new GridLayout(rows, columns));
@@ -95,12 +103,12 @@ public class GameBoard extends JPanel implements IBoard {
     }
 
 
-    public void createSnake() {
-        for (int i = 0; i < lengthOfSnake; i++) {
-            snake.add(new Layout(0, i));
-            if (i == lengthOfSnake - 1) position = new Layout(snake.get(i));
-        }
-    }
+//    public void createSnake() {
+//        for (int i = 0; i < lengthOfSnake; i++) {
+//            snake.add(new Layout(0, i));
+//            if (i == lengthOfSnake - 1) position = new Layout(snake.get(i));
+//        }
+//    }
 
     public void markStartPosition() {
         for (int i = 0; i < snake.size(); i++) {
@@ -153,13 +161,14 @@ public class GameBoard extends JPanel implements IBoard {
             }
         }
         snake.clear();
-        createSnake();
+        gl.createSnake(lengthOfSnake, snake, position);
         markStartPosition();
         gl.shuffleApplePosition(labels, apple, position, appleBit, rows, columns);
         timer.stop();
         score = -1;
         addPoint();
     }
+
     private class KeyAction extends AbstractAction {
         public KeyAction(String actionCommand) {
             putValue(ACTION_COMMAND_KEY, actionCommand);
