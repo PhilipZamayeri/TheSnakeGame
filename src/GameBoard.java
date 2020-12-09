@@ -28,18 +28,6 @@ public class GameBoard extends JPanel implements IBoard {
 //    List<Layout> snake = new ArrayList<>();
     JLabel[][] labels = new JLabel[rows][columns];
 
-//    Layout apple = new Layout(0, 0);
-//    int lengthOfSnake = 3;
-//    Boolean haveEaten = false;
-//    char direction;
-//    boolean moved = true;
-//    int point = 1;
-//    int score = 0;
-
-//    JLabel showScore = new JLabel("Score: " + score);
-//    String bodyPart = '\u2584' + "";
-//    String appleBit = '\u2058' + "";
-
     javax.swing.Timer timer; // Ambition att byta till Timer
     //Timer timer;
 

@@ -4,16 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by Philip Zamayeri
- * Date: 2020-12-08
- * Time: 14:17
- * Project: TheSnakeGame
- * Copyright: MIT
- */
 public class GameLogic {
 //    int rows;
 //    int columns;
+
     GameBoard gameBoard;
     GuiHandler guiHandler;
     Layout position;
@@ -26,12 +20,9 @@ public class GameLogic {
     int point = 1;
     int score = 0;
 
-
     JLabel showScore = new JLabel("Score: " + score);
     String bodyPart = '\u2584' + "";
     String appleBit = '\u2058' + "";
-//    public GameLogic(){}
-
 
     public void createSnake() {
         for (int i = 0; i < lengthOfSnake; i++) {
