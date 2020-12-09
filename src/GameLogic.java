@@ -26,13 +26,13 @@ public class GameLogic {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 labels[i][j] = new JLabel("", SwingConstants.CENTER);
-                labels[i][j].setBorder(new EtchedBorder()); // om detta används sätt fontsize till 20
-                labels[i][j].setMinimumSize(new Dimension(unitSize, unitSize));
-                labels[i][j].setMaximumSize(new Dimension(unitSize, unitSize));
+                //labels[i][j].setBorder(new EtchedBorder()); // om detta används sätt fontsize till 20
+                //labels[i][j].setMinimumSize(new Dimension(unitSize, unitSize));
+                //labels[i][j].setMaximumSize(new Dimension(unitSize, unitSize));
                 labels[i][j].setPreferredSize(new Dimension(unitSize, unitSize));
-                labels[i][j].setFont(new Font("Andale Mono", Font.BOLD, 20)); // sätt till 20 om border nyttjas
+                labels[i][j].setFont(new Font("Andale Mono", Font.BOLD, 30)); // sätt till 20 om border nyttjas
                 basePanel.add(labels[i][j]);
-                labels[i][j].setForeground(Color.GREEN);
+                //labels[i][j].setForeground(Color.GREEN);
             }
         }
     }
