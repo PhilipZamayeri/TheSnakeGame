@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class GameOverBoard extends JPanel implements IBoard {
 
-    JButton newGame = new JButton("Play again?");
+    protected JButton newGame = new JButton("Play again?");
 
     public GameOverBoard(GuiHandler guiHandler) {
         board(guiHandler);

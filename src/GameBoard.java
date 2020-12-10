@@ -7,16 +7,16 @@ import java.awt.event.KeyEvent;
 
 public class GameBoard extends JPanel implements IBoard {
 
-    GameLogic gl;
-    JPanel scorePanel = new JPanel();
-    JPanel basePanel = new JPanel();
+    protected GameLogic gl;
+    protected JPanel scorePanel = new JPanel();
+    protected JPanel basePanel = new JPanel();
 
-    int rows = 15;
-    int columns = 15;
-    int unitSize = 25;
-    JLabel[][] labels = new JLabel[rows][columns];
+    protected int rows = 15;
+    protected int columns = 15;
+    protected int unitSize = 25;
+    protected JLabel[][] labels = new JLabel[rows][columns];
 
-    private Timer timer;
+    protected Timer timer;
 
     static final String VK_LEFT = "VK_LEFT";
     static final String VK_RIGHT = "VK_RIGHT";
@@ -75,7 +75,7 @@ public class GameBoard extends JPanel implements IBoard {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 labels[i][j] = new JLabel("", SwingConstants.CENTER);
-                labels[i][j].setBorder(new EtchedBorder());
+                //labels[i][j].setBorder(new EtchedBorder());
                 labels[i][j].setPreferredSize(new Dimension(unitSize, unitSize));
                 labels[i][j].setFont(new Font("Andale Mono", Font.BOLD, 20));
                 basePanel.add(labels[i][j]);
