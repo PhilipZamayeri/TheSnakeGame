@@ -8,7 +8,7 @@ public class GameLogic {
 //    List<Layout> snake = new ArrayList<>();
 //    int lengthOfSnake = 3;
 //    GameBoard gb = new GameBoard();
-    Layout position;
+
 
     protected GameBoard gameBoard;
     protected GuiHandler guiHandler;
@@ -21,6 +21,7 @@ public class GameLogic {
     protected boolean moved = true;
     protected int point = 1;
     protected int score = 0;
+//    protected int delay = 0;
 
     protected JLabel showScore = new JLabel("Score: " + score);
     protected String bodyPart = '\u2584' + "";
@@ -62,16 +63,14 @@ public class GameLogic {
         labels[apple.row][apple.column].setText(appleBit);
         labels[apple.row][apple.column].setForeground(Color.red);
     }
-//    public void createSnake(int lengthOfSnake, List<Layout> snake, Layout position) {
-//        for (int i = 0; i < lengthOfSnake; i++) {
-//            snake.add(new Layout(0, i));
-//            if (i == lengthOfSnake - 1) position = new Layout(snake.get(i));
-//        }
-//    }
 
     public void updateSnake(JLabel[][] labels, int rows, int columns) {
         if (position.isEqualsTo(apple)) {
             haveEaten = true;
+            if(haveEaten){
+                gameBoard.delay-=10;
+                System.out.println(gameBoard.delay);
+            }
             addPoint();
             shuffleApplePosition(labels, rows, columns);
         } else haveEaten = false;
@@ -101,5 +100,14 @@ public class GameLogic {
     public void addPoint() {
         score += point;
         showScore.setText("Score: " + score);
+//        System.out.println(score);
+//        gameBoard.delay-=5;
+//        System.out.println(gameBoard.delay);
+    }
+    public void speed(){
+//    this.delay = delay;
+    if(score % 2 == 0){
+        gameBoard.delay--;
+    }
     }
 }
