@@ -1,23 +1,36 @@
 import javax.swing.*;
-import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
-/**
- * Created by Philip Zamayeri
- * Date: 2020-12-08
- * Time: 14:17
- * Project: TheSnakeGame
- * Copyright: MIT
- */
 public class GameLogic {
 //    List<Layout> snake = new ArrayList<>();
 //    int lengthOfSnake = 3;
 //    GameBoard gb = new GameBoard();
     Layout position;
+
+    protected GameBoard gameBoard;
+    protected GuiHandler guiHandler;
+    protected Layout position;
+    protected List<Layout> snake = new ArrayList<>();
+    protected Layout apple = new Layout(0, 0);
+    protected int lengthOfSnake = 3;
+    protected Boolean haveEaten = false;
+    protected char direction;
+    protected boolean moved = true;
+    protected int point = 1;
+    protected int score = 0;
+
+    protected JLabel showScore = new JLabel("Score: " + score);
+    protected String bodyPart = '\u2584' + "";
+    protected String appleBit = '\u2058' + "";
+
+    public GameLogic(GameBoard gameBoard, GuiHandler guiHandler) {
+        this.gameBoard = gameBoard;
+        this.guiHandler = guiHandler;
+    }
+
 
     public void move(char direction, Layout position) {
         if (direction == 'U') position.row--;
@@ -26,22 +39,16 @@ public class GameLogic {
         if (direction == 'R') position.column++;
     }
 
-    public void addLabels(JPanel basePanel, JLabel[][] labels, int rows, int columns, int unitSize) {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                labels[i][j] = new JLabel("", SwingConstants.CENTER);
-                labels[i][j].setBorder(new EtchedBorder()); // om detta används sätt fontsize till 20
-                labels[i][j].setMinimumSize(new Dimension(unitSize, unitSize));
-                labels[i][j].setMaximumSize(new Dimension(unitSize, unitSize));
-                labels[i][j].setPreferredSize(new Dimension(unitSize, unitSize));
-                labels[i][j].setFont(new Font("Andale Mono", Font.BOLD, 20)); // sätt till 20 om border nyttjas
-                basePanel.add(labels[i][j]);
-                labels[i][j].setForeground(Color.GREEN);
-            }
+    public void markStartPosition(JLabel[][] labels) {
+        for (int i = 0; i < snake.size(); i++) {
+            var row = snake.get(i).row;
+            var column = snake.get(i).column;
+            labels[row][column].setText(bodyPart);
         }
+        direction = 'R';
     }
 
-    public void shuffleApplePosition(JLabel[][] labels,Layout apple, Layout position, String appleBit, int rows, int columns) {
+    public void shuffleApplePosition(JLabel[][] labels, int rows, int columns) {
         labels[apple.row][apple.column].setForeground(null);
         int row;
         int col;
@@ -62,4 +69,37 @@ public class GameLogic {
 //        }
 //    }
 
+    public void updateSnake(JLabel[][] labels, int rows, int columns) {
+        if (position.isEqualsTo(apple)) {
+            haveEaten = true;
+            addPoint();
+            shuffleApplePosition(labels, rows, columns);
+        } else haveEaten = false;
+
+        snake.add(new Layout(position));
+
+        if (!haveEaten) {
+            labels[snake.get(0).row][snake.get(0).column].setText("");
+            labels[apple.row][apple.column].setText(appleBit);
+            snake.remove(0);
+        }
+
+        try {
+            if (labels[position.row][position.column].getText().equals(bodyPart)) {
+                System.out.println("Game over! \nYour Score: " + score);
+                gameBoard.reset();
+                guiHandler.changeToGameOverBoard();
+            }
+            labels[position.row][position.column].setText(bodyPart);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Game over! \nYour Score: " + score);
+            gameBoard.reset();
+            guiHandler.changeToGameOverBoard();
+        }
+    }
+
+    public void addPoint() {
+        score += point;
+        showScore.setText("Score: " + score);
+    }
 }
