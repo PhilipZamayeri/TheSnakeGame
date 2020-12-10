@@ -10,16 +10,13 @@ import javax.swing.*;
 public class BoardFactory {
 
     public JPanel createBoard(GuiHandler guiHandler, Phase phase) {
-        if (phase == Phase.START) {
-            return new StartBoard(guiHandler);
-        } else if (phase == Phase.GAME) {
-            return new GameBoard(guiHandler);
-        } else if (phase == Phase.GAME_OVER) {
-            return new GameOverBoard(guiHandler);
-        } else {
-            return null;
-        }
+        return switch (phase) {
+            case START -> new StartBoard(guiHandler);
+            case GAME -> new GameBoard(guiHandler);
+            case GAME_OVER -> new GameOverBoard(guiHandler);
+        };
     }
+
     enum Phase {
         START,
         GAME,

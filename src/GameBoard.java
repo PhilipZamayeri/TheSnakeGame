@@ -73,6 +73,7 @@ public class GameBoard extends JPanel implements IBoard {
         timer = new javax.swing.Timer(100, time);
         timer.start();
     }
+
     private void setKeyBindings() {
         ActionMap actionMap = getActionMap();
         InputMap inputMap = getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -86,16 +87,17 @@ public class GameBoard extends JPanel implements IBoard {
         actionMap.put(VK_UP, new KeyAction(VK_UP));
         actionMap.put(VK_DOWN, new KeyAction(VK_DOWN));
     }
+
     @Override
     public void board(GuiHandler guiHandler) {
         basePanel.setLayout(new GridLayout(rows, columns));
         setLayout(new BorderLayout());
         add(scorePanel, BorderLayout.NORTH);
         add(basePanel, BorderLayout.CENTER);
+        scorePanel.setBackground(Color.white);
         //basePanel.setBackground(Color.black);
         scorePanel.add(scoreTxt);
     }
-
 
     public void createSnake() {
         for (int i = 0; i < lengthOfSnake; i++) {
@@ -162,6 +164,7 @@ public class GameBoard extends JPanel implements IBoard {
         score = -1;
         addPoint();
     }
+
     private class KeyAction extends AbstractAction {
         public KeyAction(String actionCommand) {
             putValue(ACTION_COMMAND_KEY, actionCommand);
