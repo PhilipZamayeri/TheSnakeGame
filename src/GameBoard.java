@@ -16,7 +16,9 @@ import java.util.Random;
  * Copyright: MIT
  */
 public class GameBoard extends JPanel implements IBoard {
+
     GameLogic gl = new GameLogic();
+
     JPanel scorePanel = new JPanel();
     JPanel basePanel = new JPanel();
     JLabel scoreTxt = new JLabel("Score: ");

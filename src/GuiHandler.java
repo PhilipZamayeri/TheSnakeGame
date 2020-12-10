@@ -2,10 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 
  public class GuiHandler extends JFrame {
+
+
         JPanel mainPanel = new JPanel(new BorderLayout());
+        BoardFactory bf = new BoardFactory();
 
         public GuiHandler(){
-            mainPanel.add(new StartBoard(this));
+
+            mainPanel.add(bf.createBoard(this, BoardFactory.Phase.START));
             mainPanel.setSize(500,500);
             setTitle("Snake");
             setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -19,21 +23,23 @@ import java.awt.*;
 
         public void changeToGameBoard(){
             mainPanel.removeAll();
-            mainPanel.add(new GameBoard(this));
+            mainPanel.add(bf.createBoard(this, BoardFactory.Phase.GAME));
             mainPanel.revalidate();
             mainPanel.repaint();
+            GameLogic gl;
         }
 
         public void changeToGameOverBoard(){
+
             mainPanel.removeAll();
-            mainPanel.add(new GameOverBoard(this));
+            mainPanel.add(bf.createBoard(this, BoardFactory.Phase.GAME_OVER));
             mainPanel.revalidate();
             mainPanel.repaint();
         }
 
         public void changeToStartBoard(){
             mainPanel.removeAll();
-            mainPanel.add(new StartBoard(this));
+            mainPanel.add(bf.createBoard(this, BoardFactory.Phase.START));
             mainPanel.revalidate();
             mainPanel.repaint();
         }

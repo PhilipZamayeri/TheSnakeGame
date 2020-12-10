@@ -12,6 +12,7 @@ public class StartBoard extends JPanel implements IBoard{
     JButton newGame = new JButton("Nytt spel");
 
 
+
     public StartBoard(GuiHandler guiHandler){
         board(guiHandler);
     }
