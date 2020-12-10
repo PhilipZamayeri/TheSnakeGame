@@ -1,12 +1,5 @@
 import javax.swing.*;
 
-/**
- * created by Mimi Santana
- * Date: 2020-12-09
- * Time: 20:27
- * Project: TheSnakeGame
- * Copyright: MIT
- */
 public class BoardFactory {
 
     public JPanel createBoard(GuiHandler guiHandler, Phase phase) {

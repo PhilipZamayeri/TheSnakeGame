@@ -1,19 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by Philip Zamayeri
- * Date: 2020-12-08
- * Time: 09:40
- * Project: TheSnakeGame
- * Copyright: MIT
- */
-public class StartBoard extends JPanel implements IBoard{
-    JButton newGame = new JButton("Nytt spel");
+public class StartBoard extends JPanel implements IBoard {
+    JButton newGame = new JButton("New Game");
 
-
-
-    public StartBoard(GuiHandler guiHandler){
+    public StartBoard(GuiHandler guiHandler) {
         board(guiHandler);
     }
 
