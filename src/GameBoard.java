@@ -16,6 +16,9 @@ import java.util.Random;
  * Copyright: MIT
  */
 public class GameBoard extends JPanel implements IBoard {
+
+    GameLogic gl = new GameLogic();
+
     JPanel scorePanel = new JPanel();
     JPanel basePanel = new JPanel();
     JLabel scoreTxt = new JLabel("Score: ");
@@ -36,8 +39,8 @@ public class GameBoard extends JPanel implements IBoard {
     int score = 0;
 
     JLabel showScore = new JLabel("Score: " + score);
-    String bodyPart = '\u2584' + "";
-    String appleBit = '\u2058' + "";
+    String bodyPart = "\u2584";
+    String appleBit = "\u2058";
 
     javax.swing.Timer timer; // Ambition att byta till Timer
     //Timer timer;
@@ -51,18 +54,18 @@ public class GameBoard extends JPanel implements IBoard {
 
     public GameBoard(GuiHandler guiHandler) {
         this.guiHandler = guiHandler;
-        addLabels();
+        gl.addLabels(basePanel, labels, rows, columns, unitSize);
         board(guiHandler);
         snake.clear();
         createSnake();
         markStartPosition();
-        shuffleApplePosition();
+        gl.shuffleApplePosition(labels, apple, position, appleBit, rows, columns);
         setKeyBindings();
 
         ActionListener time = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                move(direction,position);
+                gl.move(direction,position);
                 moved = true;
                 updateSnake();
             }
@@ -70,6 +73,7 @@ public class GameBoard extends JPanel implements IBoard {
         timer = new javax.swing.Timer(100, time);
         timer.start();
     }
+
     private void setKeyBindings() {
         ActionMap actionMap = getActionMap();
         InputMap inputMap = getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -83,35 +87,16 @@ public class GameBoard extends JPanel implements IBoard {
         actionMap.put(VK_UP, new KeyAction(VK_UP));
         actionMap.put(VK_DOWN, new KeyAction(VK_DOWN));
     }
+
     @Override
     public void board(GuiHandler guiHandler) {
         basePanel.setLayout(new GridLayout(rows, columns));
         setLayout(new BorderLayout());
         add(scorePanel, BorderLayout.NORTH);
         add(basePanel, BorderLayout.CENTER);
+        scorePanel.setBackground(Color.white);
         //basePanel.setBackground(Color.black);
         scorePanel.add(scoreTxt);
-    }
-
-    public void move(char direction, Layout position) {
-        if (direction == 'U') position.row--;
-        if (direction == 'D') position.row++;
-        if (direction == 'L') position.column--;
-        if (direction == 'R') position.column++;
-    }
-
-    public void addLabels() {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                labels[i][j] = new JLabel("", SwingConstants.CENTER);
-                labels[i][j].setBorder(new EtchedBorder()); // om detta används sätt fontsize till 20
-                labels[i][j].setMinimumSize(new Dimension(unitSize, unitSize));
-                labels[i][j].setMaximumSize(new Dimension(unitSize, unitSize));
-                labels[i][j].setPreferredSize(new Dimension(unitSize, unitSize));
-                labels[i][j].setFont(new Font("Andale Mono", Font.BOLD, 20)); // sätt till 20 om border nyttjas
-                basePanel.add(labels[i][j]);
-            }
-        }
     }
 
     public void createSnake() {
@@ -130,26 +115,12 @@ public class GameBoard extends JPanel implements IBoard {
         direction = 'R';
     }
 
-    public void shuffleApplePosition() {
-        labels[apple.row][apple.column].setForeground(null);
-        int row;
-        int col;
-        Random random = new Random();
-        while (true) {
-            row = random.nextInt(rows);
-            col = random.nextInt(columns);
-            if (position.row != row || position.column != col) break;
-        }
-        apple.newPos(row, col);
-        labels[apple.row][apple.column].setText(appleBit);
-        labels[apple.row][apple.column].setForeground(Color.red);
-    }
 
     public void updateSnake() {
         if (position.isEqualsTo(apple)) {
             haveEaten = true;
             addPoint();
-            shuffleApplePosition();
+            gl.shuffleApplePosition(labels, apple, position, appleBit, rows, columns);
         } else haveEaten = false;
 
         snake.add(new Layout(position));
@@ -188,11 +159,12 @@ public class GameBoard extends JPanel implements IBoard {
         snake.clear();
         createSnake();
         markStartPosition();
-        shuffleApplePosition();
+        gl.shuffleApplePosition(labels, apple, position, appleBit, rows, columns);
         timer.stop();
         score = -1;
         addPoint();
     }
+
     private class KeyAction extends AbstractAction {
         public KeyAction(String actionCommand) {
             putValue(ACTION_COMMAND_KEY, actionCommand);
