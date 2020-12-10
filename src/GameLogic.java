@@ -78,7 +78,6 @@ public class GameLogic {
             if (labels[position.row][position.column].getText().equals(bodyPart)) {
                 System.out.println("Game over! \nYour Score: " + score);
                 gameBoard.reset();
-                //gameBoard.timer.stop();
                 guiHandler.changeToGameOverBoard();
             }
             labels[position.row][position.column].setText(bodyPart);

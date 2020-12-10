@@ -17,7 +17,7 @@ public class GameOverBoard extends JPanel implements IBoard {
         newGame.setBounds(100, 200, 300, 50);
         setVisible(true);
 
-        newGame.addActionListener(e -> guiHandler.changeToStartBoard());
+        newGame.addActionListener(e -> guiHandler.changeToGameBoard());
         add(newGame);
     }
 }
