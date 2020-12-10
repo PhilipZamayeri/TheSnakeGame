@@ -21,7 +21,6 @@ public class GameBoard extends JPanel implements IBoard {
 
     JPanel scorePanel = new JPanel();
     JPanel basePanel = new JPanel();
-    JLabel scoreTxt = new JLabel("Score: ");
     Layout position;
 
     int rows = 15;
@@ -42,7 +41,7 @@ public class GameBoard extends JPanel implements IBoard {
     String bodyPart = "\u2584";
     String appleBit = "\u2058";
 
-    javax.swing.Timer timer; // Ambition att byta till Timer
+    Timer timer; // Ambition att byta till Timer
     //Timer timer;
 
     static final String VK_LEFT = "VK_LEFT";
@@ -70,7 +69,7 @@ public class GameBoard extends JPanel implements IBoard {
                 updateSnake();
             }
         };
-        timer = new javax.swing.Timer(100, time);
+        timer = new Timer(100, time);
         timer.start();
     }
 
@@ -96,7 +95,7 @@ public class GameBoard extends JPanel implements IBoard {
         add(basePanel, BorderLayout.CENTER);
         scorePanel.setBackground(Color.white);
         //basePanel.setBackground(Color.black);
-        scorePanel.add(scoreTxt);
+        scorePanel.add(showScore);
     }
 
     public void createSnake() {
