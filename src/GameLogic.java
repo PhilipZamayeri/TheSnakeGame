@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -21,7 +24,18 @@ public class GameLogic {
     protected boolean moved = true;
     protected int point = 1;
     protected int score = 0;
-//    protected int delay = 0;
+    protected int speed;
+    protected int speedIncrease;
+
+    //Lägg till actionlistener för att komma åt och ändra hastighet på orm.
+    ActionListener time;
+
+    //variabel för att spara till high score, sätt till -1,
+    // -1 för att vi vill läsa från fil och om det inte finns någon high score så betyder .
+    protected int highScore = 0;
+
+    //Testa skriva highScore till fil
+    //private final path printHighScoreToFile = ""
 
     protected JLabel showScore = new JLabel("Score: " + score);
     protected String bodyPart = '\u2584' + "";
@@ -67,11 +81,17 @@ public class GameLogic {
     public void updateSnake(JLabel[][] labels, int rows, int columns) {
         if (position.isEqualsTo(apple)) {
             haveEaten = true;
-            if(haveEaten){
-                gameBoard.delay-=10;
-                System.out.println(gameBoard.delay);
-            }
+//            if(haveEaten){
+////                speed(speed, time);
+//                //gameBoard.timer.restart();
+////                gameBoard.speed -=10;
+////                System.out.println(gameBoard.speed);
+//                //gameBoard.timer.restart();
+//                //gameBoard.timer.start();
+////                gameBoard.repaint();
+//            }
             addPoint();
+            speed(speed, time);
             shuffleApplePosition(labels, rows, columns);
         } else haveEaten = false;
 
@@ -99,15 +119,46 @@ public class GameLogic {
 
     public void addPoint() {
         score += point;
+        speedIncrease -=5;
         showScore.setText("Score: " + score);
 //        System.out.println(score);
-//        gameBoard.delay-=5;
-//        System.out.println(gameBoard.delay);
+//        gameBoard.speed-=5;
+
     }
-    public void speed(){
-//    this.delay = delay;
-    if(score % 2 == 0){
-        gameBoard.delay--;
+    public void speed(int speed, ActionListener time){
+    this.speed = speed;
+    this.time = time;
+    if (speed > 0 && haveEaten){
+        speed += speedIncrease;
+//    if(haveEaten) {
+//        speed-=2;
+        gameBoard.timer.stop();
+        gameBoard.timer = new Timer(speed, time);
+        gameBoard.timer.start();
+       System.out.println(speed);
+
     }
     }
+    public void paus() {
+//        if () {
+            gameBoard.timer.stop();
+
+    }
+        public void start() {
+//            if (
+            gameBoard.timer = new Timer(speed, time);
+            gameBoard.timer.start();
+        }
+
+//        public String getHighScoreValue(){
+//        //format: name:points, dvs Robin: 10
+//            try {
+//                FileReader readFromFile = new FileReader("highScore.txt");
+//                BufferedReader reader = new BufferedReader(readFromFile);
+//                while()
+//            }
+//            catch (Exception e){
+//                return "No high score found";
+//            }
+//        }
 }

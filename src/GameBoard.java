@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,12 +16,16 @@ public class GameBoard extends JPanel implements IBoard {
     protected JLabel[][] labels = new JLabel[rows][columns];
 
     protected Timer timer;
-    protected int delay = 120;
+    protected int speed = 120;
 
     static final String VK_LEFT = "VK_LEFT";
     static final String VK_RIGHT = "VK_RIGHT";
     static final String VK_DOWN = "VK_DOWN";
     static final String VK_UP = "VK_UP";
+
+    //nya keycommands
+    static final String VK_SPACE = "VK_SPACE";
+    static final String VK_ENTER = "VK_ENTER";
 
 
     public GameBoard(GuiHandler guiHandler) {
@@ -43,10 +46,17 @@ public class GameBoard extends JPanel implements IBoard {
                 gl.move(gl.direction, gl.position);
                 gl.moved = true;
                 gl.updateSnake(labels, rows, columns);
+//                repaint();
             }
         };
-        timer = new Timer(delay, time);
+        timer = new Timer(speed, time);
         timer.start();
+//            if (gl.score % 2 == 0) {
+//                speed -= 4;
+//                System.out.println(speed);
+//        }
+        gl.speed(speed, time);
+////        System.out.println(speed);
     }
 
     private void setKeyBindings() {
@@ -57,10 +67,17 @@ public class GameBoard extends JPanel implements IBoard {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), VK_UP);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), VK_DOWN);
 
+        //Testa paus
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE,0),VK_SPACE);
+
         actionMap.put(VK_LEFT, new KeyAction(VK_LEFT));
         actionMap.put(VK_RIGHT, new KeyAction(VK_RIGHT));
         actionMap.put(VK_UP, new KeyAction(VK_UP));
         actionMap.put(VK_DOWN, new KeyAction(VK_DOWN));
+
+        //Testa paus
+        actionMap.put(VK_SPACE, new KeyAction(VK_SPACE));
+
     }
 
     @Override
