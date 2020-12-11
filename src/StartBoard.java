@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class StartBoard extends JPanel implements IBoard {
-    JButton newGame = new JButton("New Game");
+    protected JButton newGame = new JButton("New Game");
 
     public StartBoard(GuiHandler guiHandler) {
         board(guiHandler);

@@ -6,15 +6,15 @@ import java.awt.event.KeyEvent;
 
 public class GameBoard extends JPanel implements IBoard {
 
-    GameLogic gl;
-    JPanel scorePanel = new JPanel();
-    JPanel basePanel = new JPanel();
+    protected GameLogic gl;
+    protected JPanel scorePanel = new JPanel();
+    protected JPanel basePanel = new JPanel();
 
-    int rows = 20;
-    int columns = 20;
-    JLabel[][] labels = new JLabel[rows][columns];
+    protected int rows = 20;
+    protected int columns = 20;
+    protected JLabel[][] labels = new JLabel[rows][columns];
 
-    private Timer timer;
+    protected Timer timer;
 
     static final String VK_LEFT = "VK_LEFT";
     static final String VK_RIGHT = "VK_RIGHT";
@@ -71,7 +71,6 @@ public class GameBoard extends JPanel implements IBoard {
                 labels[i][j] = new JLabel("", SwingConstants.CENTER);
                 labels[i][j].setBackground(Color.BLACK);
                 labels[i][j].setOpaque(true);
-                //labels[i][j].setFont(new Font("Verdana", Font.BOLD,30));
                 labels[i][j].setForeground(Color.RED);
                 basePanel.add(labels[i][j]);
             }

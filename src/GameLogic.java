@@ -6,20 +6,20 @@ import java.util.Random;
 
 public class GameLogic {
 
-    GameBoard gameBoard;
-    GuiHandler guiHandler;
-    Layout position;
-    List<Layout> snake = new ArrayList<>();
-    Layout apple = new Layout(0, 0);
-    int lengthOfSnake = 3;
-    Boolean haveEaten = false;
-    char direction;
-    boolean moved = true;
-    int point = 1;
-    int score = 0;
+    protected GameBoard gameBoard;
+    protected GuiHandler guiHandler;
+    protected Layout position;
+    protected List<Layout> snake = new ArrayList<>();
+    protected Layout apple = new Layout(0, 0);
+    protected int lengthOfSnake = 3;
+    protected Boolean haveEaten = false;
+    protected char direction;
+    protected boolean moved = true;
+    protected int point = 1;
+    protected int score = 0;
 
-    JLabel showScore = new JLabel("Score: " + score);
-    String appleBit = "\u25C9";
+    protected JLabel showScore = new JLabel("Score: " + score);
+    protected String appleBit = "\u25C9";
 
     public GameLogic(GameBoard gameBoard, GuiHandler guiHandler) {
         this.gameBoard = gameBoard;

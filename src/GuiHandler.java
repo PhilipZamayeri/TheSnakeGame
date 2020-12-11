@@ -3,8 +3,8 @@ import java.awt.*;
 
 public class GuiHandler extends JFrame {
 
-    JPanel mainPanel = new JPanel(new BorderLayout());
-    BoardFactory bf = new BoardFactory();
+    protected JPanel mainPanel = new JPanel(new BorderLayout());
+    protected BoardFactory bf = new BoardFactory();
 
     public GuiHandler() {
         mainPanel.add(bf.createBoard(this, BoardFactory.Phase.START));

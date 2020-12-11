@@ -1,6 +1,6 @@
 public class Layout {
-    int row;
-    int column;
+    protected int row;
+    protected int column;
 
     public Layout(int row, int column) {
         this.row = row;
