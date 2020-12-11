@@ -19,14 +19,12 @@ public class GameLogic {
     int score = 0;
 
     JLabel showScore = new JLabel("Score: " + score);
-    String bodyPart = '\u2584' + "";
-    String appleBit = '\u2058' + "";
+    String appleBit = "\u25C9";
 
     public GameLogic(GameBoard gameBoard, GuiHandler guiHandler) {
         this.gameBoard = gameBoard;
         this.guiHandler = guiHandler;
     }
-
 
     public void move(char direction, Layout position) {
         if (direction == 'U') position.row--;
@@ -36,24 +34,23 @@ public class GameLogic {
     }
 
     public void markStartPosition(JLabel[][] labels) {
-        for (int i = 0; i < snake.size(); i++) {
-            var row = snake.get(i).row;
-            var column = snake.get(i).column;
-            labels[row][column].setText(bodyPart);
+        for (Layout layout : snake) {
+            var row = layout.row;
+            var column = layout.column;
+            labels[row][column].setBackground(Color.GREEN);
         }
         direction = 'R';
     }
 
     public void shuffleApplePosition(JLabel[][] labels, int rows, int columns) {
-        labels[apple.row][apple.column].setForeground(null);
+        labels[apple.row][apple.column].setText("");
         int row;
         int col;
         Random random = new Random();
-        while (true) {
+        do {
             row = random.nextInt(rows);
             col = random.nextInt(columns);
-            if (position.row != row || position.column != col) break;
-        }
+        } while (labels[row][col].getBackground() == Color.GREEN);
         apple.newPos(row, col);
         labels[apple.row][apple.column].setText(appleBit);
         labels[apple.row][apple.column].setForeground(Color.red);
@@ -69,18 +66,18 @@ public class GameLogic {
         snake.add(new Layout(position));
 
         if (!haveEaten) {
-            labels[snake.get(0).row][snake.get(0).column].setText("");
+            labels[snake.get(0).row][snake.get(0).column].setBackground(Color.BLACK);
             labels[apple.row][apple.column].setText(appleBit);
             snake.remove(0);
         }
 
         try {
-            if (labels[position.row][position.column].getText().equals(bodyPart)) {
+            if (labels[position.row][position.column].getBackground() == Color.GREEN) {
                 System.out.println("Game over! \nYour Score: " + score);
                 gameBoard.reset();
                 guiHandler.changeToGameOverBoard();
             }
-            labels[position.row][position.column].setText(bodyPart);
+            labels[position.row][position.column].setBackground(Color.GREEN);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Game over! \nYour Score: " + score);
             gameBoard.reset();

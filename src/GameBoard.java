@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,9 +10,8 @@ public class GameBoard extends JPanel implements IBoard {
     JPanel scorePanel = new JPanel();
     JPanel basePanel = new JPanel();
 
-    int rows = 15;
-    int columns = 15;
-    int unitSize = 25;
+    int rows = 20;
+    int columns = 20;
     JLabel[][] labels = new JLabel[rows][columns];
 
     private Timer timer;
@@ -34,14 +32,10 @@ public class GameBoard extends JPanel implements IBoard {
         gl.shuffleApplePosition(labels, rows, columns);
         setKeyBindings();
 
-        ActionListener time = new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gl.move(gl.direction, gl.position);
-                gl.moved = true;
-                gl.updateSnake(labels, rows, columns);
-            }
+        ActionListener time = e -> {
+            gl.move(gl.direction, gl.position);
+            gl.moved = true;
+            gl.updateSnake(labels, rows, columns);
         };
         timer = new Timer(100, time);
         timer.start();
@@ -64,10 +58,10 @@ public class GameBoard extends JPanel implements IBoard {
     @Override
     public void board(GuiHandler guiHandler) {
         basePanel.setLayout(new GridLayout(rows, columns));
+        basePanel.setBackground(Color.BLACK);
         setLayout(new BorderLayout());
         add(scorePanel, BorderLayout.NORTH);
         add(basePanel, BorderLayout.CENTER);
-        //basePanel.setBackground(Color.black);
         scorePanel.add(gl.showScore);
     }
 
@@ -75,9 +69,10 @@ public class GameBoard extends JPanel implements IBoard {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 labels[i][j] = new JLabel("", SwingConstants.CENTER);
-                labels[i][j].setBorder(new EtchedBorder());
-                labels[i][j].setPreferredSize(new Dimension(unitSize, unitSize));
-                labels[i][j].setFont(new Font("Andale Mono", Font.BOLD, 20));
+                labels[i][j].setBackground(Color.BLACK);
+                labels[i][j].setOpaque(true);
+                //labels[i][j].setFont(new Font("Verdana", Font.BOLD,30));
+                labels[i][j].setForeground(Color.RED);
                 basePanel.add(labels[i][j]);
             }
         }
