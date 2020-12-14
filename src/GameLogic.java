@@ -52,6 +52,8 @@ public class GameLogic {
         if (direction == 'D') position.row++;
         if (direction == 'L') position.column--;
         if (direction == 'R') position.column++;
+//        if (direction == 'P' && !isPaused) isPaused = true;
+//        if (direction == 'P' && isPaused) isPaused = false;
     }
 
     public void markStartPosition(JLabel[][] labels) {
@@ -95,13 +97,13 @@ public class GameLogic {
 
         try {
             if (labels[position.row][position.column].getBackground() == Color.GREEN) {
-                JOptionPane.showMessageDialog(null,"Game over! \nYour Score: " + score);
+                JOptionPane.showMessageDialog(null, "Game over! \nYour Score: " + score);
                 gameBoard.reset();
                 guiHandler.changeToGameOverBoard();
             }
             labels[position.row][position.column].setBackground(Color.GREEN);
         } catch (IndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(null,"Game over! \nYour Score: " + score);
+            JOptionPane.showMessageDialog(null, "Game over! \nYour Score: " + score);
             gameBoard.reset();
             guiHandler.changeToGameOverBoard();
         }
@@ -109,34 +111,53 @@ public class GameLogic {
 
     public void addPoint() {
         score += point;
-        speedIncrease -=5;
+        speedIncrease -= 5;
         showScore.setText("Score: " + score);
     }
-    public void speed(int speed, ActionListener time){
-    this.speed = speed;
-    this.time = time;
-    if (speed > 0 && haveEaten){
-        speed += speedIncrease;
-        gameBoard.timer.stop();
-        gameBoard.timer = new Timer(speed, time);
-        gameBoard.timer.start();
-       System.out.println(speed);
 
-    }
-    }
-    public void pause(char direction) {
-//        this.paused = paused;
-        if (direction == '0' && !isPaused) {
-            isPaused = true;
+    public void speed(int speed, ActionListener time) {
+        this.speed = speed;
+        this.time = time;
+        if (speed > 0 && haveEaten) {
+            speed += speedIncrease;
             gameBoard.timer.stop();
-            System.out.println(isPaused);
-        } else if (direction == '0' && isPaused) {
-            isPaused = false;
+            gameBoard.timer = new Timer(speed, time);
             gameBoard.timer.start();
-            System.out.println(isPaused);
+            System.out.println(speed);
+
         }
     }
 
+    public void isPaused(char pauseStatus) {
+        if (pauseStatus == 'P' && !isPaused) {
+            isPaused = true;
+        } else if (pauseStatus == 'P') {
+            isPaused = false;
+        }
+    }
+
+    public void isPaus(){
+        if (isPaused = false){
+            gameBoard.timer.stop();
+        }
+        else if (isPaused){
+            gameBoard.timer.start();
+        }
+    }
+
+
+//    public void pauseGame() {
+//        //this.isPaused = isPaused;
+//        if (!isPaused) {
+//            //isPaused = true;
+//            gameBoard.timer.stop();
+//            System.out.println("pause");
+//        } else if (isPaused) {
+//            //isPaused = false;
+//            gameBoard.timer.start();
+//            System.out.println("start");
+//        }
+//    }
 
 
 //        public String getHighScoreValue(){

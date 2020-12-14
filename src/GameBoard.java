@@ -16,6 +16,9 @@ public class GameBoard extends JPanel implements IBoard {
 
     protected Timer timer;
     protected int speed = 120;
+    protected boolean isPaused;
+
+    protected char pauseStatus;
 
     static final String VK_LEFT = "VK_LEFT";
     static final String VK_RIGHT = "VK_RIGHT";
@@ -45,12 +48,19 @@ public class GameBoard extends JPanel implements IBoard {
                 gl.move(gl.direction, gl.position);
                 gl.moved = true;
                 gl.updateSnake(labels, rows, columns);
-                gl.pause(gl.direction);
+//                gl.isPaused(gl.direction);
+//                gl.pauseGame();
+//                isPaus();
             }
         };
         timer = new Timer(speed, time);
         timer.start();
         gl.speed(speed, time);
+        //gl.isPaused(gl.direction);
+//        gl.pauseGame();
+        isPaus();
+        //gl.pause();
+//        gl.pause(isPaused, gl.direction);
 ////        System.out.println(speed);
     }
 
@@ -118,6 +128,24 @@ public class GameBoard extends JPanel implements IBoard {
         gl.addPoint();
     }
 
+    public void isPaused(char pauseStatus) {
+        if (pauseStatus == 'P' && !isPaused) {
+            isPaused = true;
+        } else if (pauseStatus == 'P' && isPaused) {
+            isPaused = false;
+        }
+    }
+
+    public void isPaus() {
+        if (isPaused) {
+//            System.out.println("paus");
+            timer.stop();
+        } else if (!isPaused) {
+//            System.out.println("start");
+            timer.start();
+        }
+    }
+
     private class KeyAction extends AbstractAction {
         public KeyAction(String actionCommand) {
             putValue(ACTION_COMMAND_KEY, actionCommand);
@@ -145,11 +173,14 @@ public class GameBoard extends JPanel implements IBoard {
                     if (gl.direction != 'U') {
                         gl.direction = 'D';
                     }
+                    break;
                 case VK_SPACE:
-                    if (gl.direction != 'U' && gl.direction != 'D' &&
-                            gl.direction != 'L' && gl.direction != 'R') {
-                        gl.direction = 'P';
-                    }
+                    pauseStatus = 'P';
+                    isPaused(pauseStatus);
+                    isPaus();
+                    System.out.println("shooo");
+
+
                     break;
             }
             System.out.println(actionEvt.getActionCommand() + " pressed");
