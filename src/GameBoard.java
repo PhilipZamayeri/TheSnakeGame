@@ -75,7 +75,6 @@ public class GameBoard extends JPanel implements IBoard {
 
         //Testa paus
         actionMap.put(VK_SPACE, new KeyAction(VK_SPACE));
-
     }
 
     @Override

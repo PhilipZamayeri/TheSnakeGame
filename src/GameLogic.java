@@ -26,6 +26,7 @@ public class GameLogic {
     protected int score = 0;
     protected int speed;
     protected int speedIncrease;
+    protected boolean paused = false;
 
     //Lägg till actionlistener för att komma åt och ändra hastighet på orm.
     ActionListener time;
@@ -138,16 +139,15 @@ public class GameLogic {
 
     }
     }
-    public void paus() {
-//        if () {
+    public void pause() {
+        if (paused) {
             gameBoard.timer.stop();
-
-    }
-        public void start() {
-//            if (
-            gameBoard.timer = new Timer(speed, time);
+        } else if (paused == false) {
             gameBoard.timer.start();
         }
+    }
+
+
 
 //        public String getHighScoreValue(){
 //        //format: name:points, dvs Robin: 10
