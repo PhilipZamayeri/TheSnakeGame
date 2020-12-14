@@ -15,7 +15,7 @@ public class GameLogic {
     protected Boolean haveEaten = false;
     protected char direction;
     protected boolean moved = true;
-    protected int point = 1;
+//    protected int point = 1;
     protected int score = 0;
     protected int speedCounter = 0; // ny
 
@@ -63,7 +63,7 @@ public class GameLogic {
             haveEaten = true;
             addPoint();
             shuffleApplePosition(labels, rows, columns);
-            setSpeed();
+            setSpeed(); // ny
         } else haveEaten = false;
 
         snake.add(new Layout(position));
@@ -76,13 +76,15 @@ public class GameLogic {
 
         try {
             if (labels[position.row][position.column].getBackground() == Color.GREEN) {
-                JOptionPane.showMessageDialog(null,"Game over! \nYour Score: " + score);
+                guiHandler.setTotalScore(score); // ny
+                guiHandler.highScoreList.add(score); // ny
                 gameBoard.reset();
                 guiHandler.changeToGameOverBoard();
             }
             labels[position.row][position.column].setBackground(Color.GREEN);
         } catch (IndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(null,"Game over! \nYour Score: " + score);
+            guiHandler.setTotalScore(score); // ny
+            guiHandler.highScoreList.add(score); // ny
             gameBoard.reset();
             guiHandler.changeToGameOverBoard();
 
@@ -90,10 +92,12 @@ public class GameLogic {
     }
 
     public void addPoint() {
-        score += point;
-        showScore.setText("Score: " + score + " - Current speed: " + gameBoard.speed);
+//        score += point;
+        score++;
+        showScore.setText(">> Score: " + score + " - Current speed: " + gameBoard.speed + " Snake units <<"); // ny
     }
 
+    // ny
     public void setSpeed() {
         gameBoard.speed -= 2;
         if (gameBoard.speed >= 50) {
