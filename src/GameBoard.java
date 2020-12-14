@@ -37,7 +37,7 @@ public class GameBoard extends JPanel implements IBoard {
             gl.moved = true;
             gl.updateSnake(labels, rows, columns);
         };
-        timer = new Timer(100, time);
+        timer = new Timer(StartBoard.delay, time);
         timer.start();
     }
 
