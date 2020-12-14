@@ -130,7 +130,7 @@ public class GameBoard extends JPanel implements IBoard {
                     }
                     break;
             }
-            System.out.println(actionEvt.getActionCommand() + " pressed");
+//            System.out.println(actionEvt.getActionCommand() + " pressed");
         }
     }
 

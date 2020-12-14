@@ -77,14 +77,16 @@ public class GameLogic {
         try {
             if (labels[position.row][position.column].getBackground() == Color.GREEN) {
                 guiHandler.setTotalScore(score); // ny
-                guiHandler.highScoreList.add(score); // ny
+//                guiHandler.highScoreList.add(score); // ny
+                guiHandler.writeScoreToFile(score);
                 gameBoard.reset();
                 guiHandler.changeToGameOverBoard();
             }
             labels[position.row][position.column].setBackground(Color.GREEN);
         } catch (IndexOutOfBoundsException e) {
             guiHandler.setTotalScore(score); // ny
-            guiHandler.highScoreList.add(score); // ny
+//            guiHandler.highScoreList.add(score); // ny
+            guiHandler.writeScoreToFile(score);
             gameBoard.reset();
             guiHandler.changeToGameOverBoard();
 

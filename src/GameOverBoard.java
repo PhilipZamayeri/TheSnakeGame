@@ -9,6 +9,7 @@ public class GameOverBoard extends JPanel implements IBoard {
 
     protected JLabel scoreLabelTop = new JLabel();
     protected JLabel scoreLabelBot = new JLabel();
+    protected JLabel allTimeHigh = new JLabel("All-time high:");
     protected JLabel highScoreLabelFirst = new JLabel();
     protected JLabel highScoreLabelSecond = new JLabel();
     protected JLabel highScoreLabelThird = new JLabel();
@@ -31,6 +32,8 @@ public class GameOverBoard extends JPanel implements IBoard {
         scoreLabelBot.setFont(gameOverFont);
         scoreLabelBot.setForeground(Color.RED);
 
+        allTimeHigh.setFont(scoreFont);
+        allTimeHigh.setForeground(Color.GREEN);
         highScoreLabelFirst.setFont(scoreFont);
         highScoreLabelFirst.setForeground(Color.WHITE);
         highScoreLabelSecond.setFont(scoreFont);
@@ -38,31 +41,31 @@ public class GameOverBoard extends JPanel implements IBoard {
         highScoreLabelThird.setFont(scoreFont);
         highScoreLabelThird.setForeground(Color.WHITE);
 
-        highScoreLabelFirst.setAlignmentX(CENTER_ALIGNMENT);
-
-        scoreLabelTop.setBounds(100, 50, 300, 50);
-        scoreLabelBot.setBounds(100, 100, 300, 50);
+        scoreLabelTop.setBounds(100, 25, 300, 50);
+        scoreLabelBot.setBounds(100, 75, 300, 50);
+        allTimeHigh.setBounds(100,125, 300, 50);
+        highScoreLabelFirst.setBounds(100, 175, 300, 50);
+        highScoreLabelSecond.setBounds(100, 225, 300, 50);
+        highScoreLabelThird.setBounds(100, 275, 300, 50);
         newGame.setBounds(100, 350, 300, 50);
-        highScoreLabelFirst.setBounds(150, 150, 300, 50);
-        highScoreLabelSecond.setBounds(150, 200, 300, 50);
-        highScoreLabelThird.setBounds(150, 250, 300, 50);
         setVisible(true);
+
         totalScore = guiHandler.getTotalScore();
         scoreLabelTop.setText("GAME OVER!");
         scoreLabelBot.setText("Your score: " + totalScore);
-        highScores = guiHandler.highScoreList; // ny
+        highScores = guiHandler.readScoreFromFile();
         printHighScore();
         newGame.addActionListener(e -> guiHandler.changeToGameBoard());
+
         add(scoreLabelTop);
         add(scoreLabelBot);
+        add(allTimeHigh);
         add(highScoreLabelFirst);
         add(highScoreLabelSecond);
         add(highScoreLabelThird);
         add(newGame);
 
         printList(); // kan tas bort. Enbart för testning
-
-
     }
 
     // ny
