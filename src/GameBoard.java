@@ -10,9 +10,8 @@ public class GameBoard extends JPanel implements IBoard {
     protected JPanel scorePanel = new JPanel();
     protected JPanel basePanel = new JPanel();
 
-    protected int rows = 15;
-    protected int columns = 15;
-    protected int unitSize = 25;
+    protected int rows = 20;
+    protected int columns = 20;
     protected JLabel[][] labels = new JLabel[rows][columns];
 
     protected Timer timer;
@@ -46,7 +45,6 @@ public class GameBoard extends JPanel implements IBoard {
                 gl.move(gl.direction, gl.position);
                 gl.moved = true;
                 gl.updateSnake(labels, rows, columns);
-//                repaint();
             }
         };
         timer = new Timer(speed, time);
@@ -83,10 +81,10 @@ public class GameBoard extends JPanel implements IBoard {
     @Override
     public void board(GuiHandler guiHandler) {
         basePanel.setLayout(new GridLayout(rows, columns));
+        basePanel.setBackground(Color.BLACK);
         setLayout(new BorderLayout());
         add(scorePanel, BorderLayout.NORTH);
         add(basePanel, BorderLayout.CENTER);
-        //basePanel.setBackground(Color.black);
         scorePanel.add(gl.showScore);
     }
 
@@ -94,9 +92,9 @@ public class GameBoard extends JPanel implements IBoard {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 labels[i][j] = new JLabel("", SwingConstants.CENTER);
-                //labels[i][j].setBorder(new EtchedBorder());
-                labels[i][j].setPreferredSize(new Dimension(unitSize, unitSize));
-                labels[i][j].setFont(new Font("Andale Mono", Font.BOLD, 20));
+                labels[i][j].setBackground(Color.BLACK);
+                labels[i][j].setOpaque(true);
+                labels[i][j].setForeground(Color.RED);
                 basePanel.add(labels[i][j]);
             }
         }

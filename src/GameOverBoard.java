@@ -3,6 +3,8 @@ import java.awt.*;
 
 public class GameOverBoard extends JPanel implements IBoard {
 
+
+
     protected JButton newGame = new JButton("Play again?");
     protected JLabel score;
 
@@ -12,6 +14,7 @@ public class GameOverBoard extends JPanel implements IBoard {
 
     @Override
     public void board(GuiHandler guiHandler) {
+
         setLayout(null);
         setBackground(Color.BLACK);
 
