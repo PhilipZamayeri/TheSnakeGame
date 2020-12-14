@@ -94,7 +94,7 @@ public class GameLogic {
     public void addPoint() {
 //        score += point;
         score++;
-        showScore.setText(">> Score: " + score + " - Current speed: " + gameBoard.speed + " Snake units <<"); // ny
+        showScore.setText(">> Score: " + score + " --- Current speed: " + gameBoard.speed + " snake units <<"); // ny
     }
 
     // ny

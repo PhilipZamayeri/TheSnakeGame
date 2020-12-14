@@ -1,20 +1,22 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.Font;
 import java.util.Collections;
 import java.util.List;
 
 public class GameOverBoard extends JPanel implements IBoard {
 
-    protected JPanel scorePanel = new JPanel();
-    protected JLabel scoreLabel = new JLabel();
-    protected JPanel highScorePanel = new JPanel();
+    protected JLabel scoreLabelTop = new JLabel();
+    protected JLabel scoreLabelBot = new JLabel();
     protected JLabel highScoreLabelFirst = new JLabel();
     protected JLabel highScoreLabelSecond = new JLabel();
     protected JLabel highScoreLabelThird = new JLabel();
-    protected JPanel buttonPanel = new JPanel();
     protected JButton newGame = new JButton("Play again?");
     protected int totalScore; // ny
     protected List<Integer> highScores; // ny
+    protected Font scoreFont = new Font("Monospaced", Font.BOLD, 18);
+    protected Font gameOverFont = new Font("Monospaced", Font.BOLD, 28);
 
     public GameOverBoard(GuiHandler guiHandler) {
         board(guiHandler);
@@ -22,28 +24,42 @@ public class GameOverBoard extends JPanel implements IBoard {
 
     @Override
     public void board(GuiHandler guiHandler) {
-        setLayout(new GridLayout(3,0));
+        setLayout(null);
+        setBackground(Color.BLACK);
+        scoreLabelTop.setFont(gameOverFont);
+        scoreLabelTop.setForeground(Color.RED);
+        scoreLabelBot.setFont(gameOverFont);
+        scoreLabelBot.setForeground(Color.RED);
 
-        setBackground(Color.WHITE);
+        highScoreLabelFirst.setFont(scoreFont);
+        highScoreLabelFirst.setForeground(Color.WHITE);
+        highScoreLabelSecond.setFont(scoreFont);
+        highScoreLabelSecond.setForeground(Color.WHITE);
+        highScoreLabelThird.setFont(scoreFont);
+        highScoreLabelThird.setForeground(Color.WHITE);
 
-        scoreLabel.setBounds(100, 200, 300, 50);
-        newGame.setBounds(100, 200, 300, 50);
+        highScoreLabelFirst.setAlignmentX(CENTER_ALIGNMENT);
+
+        scoreLabelTop.setBounds(100, 50, 300, 50);
+        scoreLabelBot.setBounds(100, 100, 300, 50);
+        newGame.setBounds(100, 350, 300, 50);
+        highScoreLabelFirst.setBounds(150, 150, 300, 50);
+        highScoreLabelSecond.setBounds(150, 200, 300, 50);
+        highScoreLabelThird.setBounds(150, 250, 300, 50);
         setVisible(true);
         totalScore = guiHandler.getTotalScore();
-        scoreLabel.setText("GAME OVER!\n Your score: " + totalScore);
+        scoreLabelTop.setText("GAME OVER!");
+        scoreLabelBot.setText("Your score: " + totalScore);
         highScores = guiHandler.highScoreList; // ny
         printHighScore();
         newGame.addActionListener(e -> guiHandler.changeToGameBoard());
+        add(scoreLabelTop);
+        add(scoreLabelBot);
+        add(highScoreLabelFirst);
+        add(highScoreLabelSecond);
+        add(highScoreLabelThird);
+        add(newGame);
 
-        scorePanel.add(scoreLabel);
-        add(scorePanel, CENTER_ALIGNMENT);
-        highScorePanel.setLayout(new GridLayout(3,0));
-        highScorePanel.add(highScoreLabelFirst);
-        highScorePanel.add(highScoreLabelSecond);
-        highScorePanel.add(highScoreLabelThird);
-        add(highScorePanel, CENTER_ALIGNMENT);
-        buttonPanel.add(newGame);
-        add(buttonPanel, CENTER_ALIGNMENT);
         printList(); // kan tas bort. Enbart för testning
 
 
