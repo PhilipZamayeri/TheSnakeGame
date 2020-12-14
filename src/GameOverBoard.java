@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameOverBoard extends JPanel implements IBoard {
-    Font fn = new Font("Tahoma", Font.BOLD, 30);
+    protected  Font fn = new Font("Tahoma", Font.BOLD, 30);
     protected JLabel label = new JLabel("GAME OVER");
     protected JButton newGame = new JButton("Play again?");
     protected JButton lvl = new JButton("Change degree of difficulty");

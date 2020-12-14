@@ -4,10 +4,10 @@ import java.awt.*;
 public class StartBoard extends JPanel implements IBoard {
     protected static int delay;
     protected JButton newGame = new JButton("New Game");
-    ButtonGroup group;
-    JRadioButton easy;
-    JRadioButton medium;
-    JRadioButton hard;
+    protected ButtonGroup group;
+    protected JRadioButton easy;
+    protected JRadioButton medium;
+    protected JRadioButton hard;
 
     public StartBoard(GuiHandler guiHandler) {
         board(guiHandler);
