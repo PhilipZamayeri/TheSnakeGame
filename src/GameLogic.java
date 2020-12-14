@@ -97,10 +97,8 @@ public class GameLogic {
     public void setSpeed() {
         gameBoard.speed -= 2;
         if (gameBoard.speed >= 50) {
-            //setSpeedText();
             gameBoard.timer.setDelay(gameBoard.speed);
         } else {
-            //setSpeedText();
             gameBoard.speed = 50;
         }
     }
