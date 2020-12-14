@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.Font;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -71,7 +72,7 @@ public class GameOverBoard extends JPanel implements IBoard {
     // ny
     public void printHighScore() {
         highScores.sort(Collections.reverseOrder());
-        highScoreLabelFirst.setText("1st place: " + highScores.get(0));
+        highScoreLabelFirst.setText("1st place: " + highScores.get(0)); //  + " (" + LocalDate.now() + ")"
         if (highScores.size() > 1) {
             highScoreLabelSecond.setText("2nd place: " + highScores.get(1));
         }
