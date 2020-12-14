@@ -16,6 +16,7 @@ public class GuiHandler extends JFrame {
         setSize(500, 500);
         add(mainPanel);
         setVisible(true);
+        setLocationRelativeTo(null);
 
     }
 
