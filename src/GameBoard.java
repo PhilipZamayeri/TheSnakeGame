@@ -15,6 +15,7 @@ public class GameBoard extends JPanel implements IBoard {
     protected JLabel[][] labels = new JLabel[rows][columns];
 
     protected Timer timer;
+    protected int speed = 150;
 
     static final String VK_LEFT = "VK_LEFT";
     static final String VK_RIGHT = "VK_RIGHT";
@@ -37,7 +38,7 @@ public class GameBoard extends JPanel implements IBoard {
             gl.moved = true;
             gl.updateSnake(labels, rows, columns);
         };
-        timer = new Timer(100, time);
+        timer = new Timer(speed, time);
         timer.start();
     }
 

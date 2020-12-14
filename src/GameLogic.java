@@ -17,6 +17,7 @@ public class GameLogic {
     protected boolean moved = true;
     protected int point = 1;
     protected int score = 0;
+    protected int speedCounter = 0; // ny
 
     protected JLabel showScore = new JLabel("Score: " + score);
     protected String appleBit = "\u25C9";
@@ -62,6 +63,7 @@ public class GameLogic {
             haveEaten = true;
             addPoint();
             shuffleApplePosition(labels, rows, columns);
+            setSpeed();
         } else haveEaten = false;
 
         snake.add(new Layout(position));
@@ -89,6 +91,17 @@ public class GameLogic {
 
     public void addPoint() {
         score += point;
-        showScore.setText("Score: " + score);
+        showScore.setText("Score: " + score + " - Current speed: " + gameBoard.speed);
+    }
+
+    public void setSpeed() {
+        gameBoard.speed -= 2;
+        if (gameBoard.speed >= 50) {
+            //setSpeedText();
+            gameBoard.timer.setDelay(gameBoard.speed);
+        } else {
+            //setSpeedText();
+            gameBoard.speed = 50;
+        }
     }
 }
