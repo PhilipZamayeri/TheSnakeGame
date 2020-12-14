@@ -24,6 +24,7 @@ public class GameLogic {
     public GameLogic(GameBoard gameBoard, GuiHandler guiHandler) {
         this.gameBoard = gameBoard;
         this.guiHandler = guiHandler;
+
     }
 
     public void move(char direction, Layout position) {
@@ -73,15 +74,16 @@ public class GameLogic {
 
         try {
             if (labels[position.row][position.column].getBackground() == Color.GREEN) {
-                System.out.println("Game over! \nYour Score: " + score);
+                JOptionPane.showMessageDialog(null,"Game over! \nYour Score: " + score);
                 gameBoard.reset();
                 guiHandler.changeToGameOverBoard();
             }
             labels[position.row][position.column].setBackground(Color.GREEN);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Game over! \nYour Score: " + score);
+            JOptionPane.showMessageDialog(null,"Game over! \nYour Score: " + score);
             gameBoard.reset();
             guiHandler.changeToGameOverBoard();
+
         }
     }
 
