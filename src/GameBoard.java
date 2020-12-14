@@ -45,14 +45,11 @@ public class GameBoard extends JPanel implements IBoard {
                 gl.move(gl.direction, gl.position);
                 gl.moved = true;
                 gl.updateSnake(labels, rows, columns);
+                gl.pause(gl.direction);
             }
         };
         timer = new Timer(speed, time);
         timer.start();
-//            if (gl.score % 2 == 0) {
-//                speed -= 4;
-//                System.out.println(speed);
-//        }
         gl.speed(speed, time);
 ////        System.out.println(speed);
     }
@@ -66,7 +63,7 @@ public class GameBoard extends JPanel implements IBoard {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), VK_DOWN);
 
         //Testa paus
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE,0),VK_SPACE);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), VK_SPACE);
 
         actionMap.put(VK_LEFT, new KeyAction(VK_LEFT));
         actionMap.put(VK_RIGHT, new KeyAction(VK_RIGHT));
@@ -147,6 +144,11 @@ public class GameBoard extends JPanel implements IBoard {
                 case VK_DOWN:
                     if (gl.direction != 'U') {
                         gl.direction = 'D';
+                    }
+                case VK_SPACE:
+                    if (gl.direction != 'U' && gl.direction != 'D' &&
+                            gl.direction != 'L' && gl.direction != 'R') {
+                        gl.direction = 'P';
                     }
                     break;
             }

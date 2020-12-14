@@ -26,7 +26,7 @@ public class GameLogic {
     protected int score = 0;
     protected int speed;
     protected int speedIncrease;
-    protected boolean paused = false;
+    protected boolean isPaused = false;
 
     //Lägg till actionlistener för att komma åt och ändra hastighet på orm.
     ActionListener time;
@@ -80,15 +80,6 @@ public class GameLogic {
     public void updateSnake(JLabel[][] labels, int rows, int columns) {
         if (position.isEqualsTo(apple)) {
             haveEaten = true;
-//            if(haveEaten){
-////                speed(speed, time);
-//                //gameBoard.timer.restart();
-////                gameBoard.speed -=10;
-////                System.out.println(gameBoard.speed);
-//                //gameBoard.timer.restart();
-//                //gameBoard.timer.start();
-////                gameBoard.repaint();
-//            }
             addPoint();
             speed(speed, time);
             shuffleApplePosition(labels, rows, columns);
@@ -113,7 +104,6 @@ public class GameLogic {
             JOptionPane.showMessageDialog(null,"Game over! \nYour Score: " + score);
             gameBoard.reset();
             guiHandler.changeToGameOverBoard();
-
         }
     }
 
@@ -121,17 +111,12 @@ public class GameLogic {
         score += point;
         speedIncrease -=5;
         showScore.setText("Score: " + score);
-//        System.out.println(score);
-//        gameBoard.speed-=5;
-
     }
     public void speed(int speed, ActionListener time){
     this.speed = speed;
     this.time = time;
     if (speed > 0 && haveEaten){
         speed += speedIncrease;
-//    if(haveEaten) {
-//        speed-=2;
         gameBoard.timer.stop();
         gameBoard.timer = new Timer(speed, time);
         gameBoard.timer.start();
@@ -139,11 +124,16 @@ public class GameLogic {
 
     }
     }
-    public void pause() {
-        if (paused) {
+    public void pause(char direction) {
+//        this.paused = paused;
+        if (direction == '0' && !isPaused) {
+            isPaused = true;
             gameBoard.timer.stop();
-        } else if (paused == false) {
+            System.out.println(isPaused);
+        } else if (direction == '0' && isPaused) {
+            isPaused = false;
             gameBoard.timer.start();
+            System.out.println(isPaused);
         }
     }
 
