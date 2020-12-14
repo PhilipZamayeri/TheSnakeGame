@@ -25,17 +25,13 @@ public class GameBoard extends JPanel implements IBoard {
     static final String VK_DOWN = "VK_DOWN";
     static final String VK_UP = "VK_UP";
 
-    //nya keycommands
     static final String VK_SPACE = "VK_SPACE";
-    static final String VK_ENTER = "VK_ENTER";
-
 
     public GameBoard(GuiHandler guiHandler) {
         gl = new GameLogic(this, guiHandler);
         addLabels();
         board(guiHandler);
         gl.snake.clear();
-//        gl.speed();
         createSnake();
         gl.markStartPosition(labels);
         gl.shuffleApplePosition(labels, rows, columns);
@@ -48,20 +44,12 @@ public class GameBoard extends JPanel implements IBoard {
                 gl.move(gl.direction, gl.position);
                 gl.moved = true;
                 gl.updateSnake(labels, rows, columns);
-//                gl.isPaused(gl.direction);
-//                gl.pauseGame();
-//                isPaus();
             }
         };
         timer = new Timer(speed, time);
         timer.start();
         gl.speed(speed, time);
-        //gl.isPaused(gl.direction);
-//        gl.pauseGame();
-        isPaus();
-        //gl.pause();
-//        gl.pause(isPaused, gl.direction);
-////        System.out.println(speed);
+        pauseGame();
     }
 
     private void setKeyBindings() {
@@ -72,7 +60,6 @@ public class GameBoard extends JPanel implements IBoard {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), VK_UP);
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), VK_DOWN);
 
-        //Testa paus
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), VK_SPACE);
 
         actionMap.put(VK_LEFT, new KeyAction(VK_LEFT));
@@ -80,7 +67,6 @@ public class GameBoard extends JPanel implements IBoard {
         actionMap.put(VK_UP, new KeyAction(VK_UP));
         actionMap.put(VK_DOWN, new KeyAction(VK_DOWN));
 
-        //Testa paus
         actionMap.put(VK_SPACE, new KeyAction(VK_SPACE));
     }
 
@@ -136,12 +122,10 @@ public class GameBoard extends JPanel implements IBoard {
         }
     }
 
-    public void isPaus() {
+    public void pauseGame() {
         if (isPaused) {
-//            System.out.println("paus");
             timer.stop();
         } else if (!isPaused) {
-//            System.out.println("start");
             timer.start();
         }
     }
@@ -177,9 +161,7 @@ public class GameBoard extends JPanel implements IBoard {
                 case VK_SPACE:
                     pauseStatus = 'P';
                     isPaused(pauseStatus);
-                    isPaus();
-                    System.out.println("shooo");
-
+                    pauseGame();
 
                     break;
             }

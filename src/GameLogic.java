@@ -8,10 +8,6 @@ import java.util.List;
 import java.util.Random;
 
 public class GameLogic {
-//    List<Layout> snake = new ArrayList<>();
-//    int lengthOfSnake = 3;
-//    GameBoard gb = new GameBoard();
-
 
     protected GameBoard gameBoard;
     protected GuiHandler guiHandler;
@@ -26,17 +22,8 @@ public class GameLogic {
     protected int score = 0;
     protected int speed;
     protected int speedIncrease;
-    protected boolean isPaused = false;
 
-    //Lägg till actionlistener för att komma åt och ändra hastighet på orm.
     ActionListener time;
-
-    //variabel för att spara till high score, sätt till -1,
-    // -1 för att vi vill läsa från fil och om det inte finns någon high score så betyder .
-    protected int highScore = 0;
-
-    //Testa skriva highScore till fil
-    //private final path printHighScoreToFile = ""
 
     protected JLabel showScore = new JLabel("Score: " + score);
     protected String appleBit = "\u25C9";
@@ -44,7 +31,6 @@ public class GameLogic {
     public GameLogic(GameBoard gameBoard, GuiHandler guiHandler) {
         this.gameBoard = gameBoard;
         this.guiHandler = guiHandler;
-
     }
 
     public void move(char direction, Layout position) {
@@ -52,8 +38,6 @@ public class GameLogic {
         if (direction == 'D') position.row++;
         if (direction == 'L') position.column--;
         if (direction == 'R') position.column++;
-//        if (direction == 'P' && !isPaused) isPaused = true;
-//        if (direction == 'P' && isPaused) isPaused = false;
     }
 
     public void markStartPosition(JLabel[][] labels) {
@@ -128,47 +112,21 @@ public class GameLogic {
         }
     }
 
-    public void isPaused(char pauseStatus) {
-        if (pauseStatus == 'P' && !isPaused) {
-            isPaused = true;
-        } else if (pauseStatus == 'P') {
-            isPaused = false;
-        }
-    }
+//    public void isPaused(char pauseStatus) {
 
-    public void isPaus(){
-        if (isPaused = false){
-            gameBoard.timer.stop();
-        }
-        else if (isPaused){
-            gameBoard.timer.start();
-        }
-    }
-
-
+//        if (pauseStatus == 'P' && !gameBoard.isPaused) {
+//            gameBoard.isPaused = true;
+//        } else if (pauseStatus == 'P' && gameBoard.isPaused) {
+//            gameBoard.isPaused = false;
+//        }
+//    }
+//
 //    public void pauseGame() {
-//        //this.isPaused = isPaused;
-//        if (!isPaused) {
-//            //isPaused = true;
+//        if (gameBoard.isPaused) {
 //            gameBoard.timer.stop();
-//            System.out.println("pause");
-//        } else if (isPaused) {
-//            //isPaused = false;
+//        } else if (!gameBoard.isPaused) {
 //            gameBoard.timer.start();
-//            System.out.println("start");
 //        }
 //    }
 
-
-//        public String getHighScoreValue(){
-//        //format: name:points, dvs Robin: 10
-//            try {
-//                FileReader readFromFile = new FileReader("highScore.txt");
-//                BufferedReader reader = new BufferedReader(readFromFile);
-//                while()
-//            }
-//            catch (Exception e){
-//                return "No high score found";
-//            }
-//        }
 }
