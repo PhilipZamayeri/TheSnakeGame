@@ -112,6 +112,7 @@ public class GameLogic {
         }
     }
 
+
 //    public void isPaused(char pauseStatus) {
 
 //        if (pauseStatus == 'P' && !gameBoard.isPaused) {
