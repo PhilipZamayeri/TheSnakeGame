@@ -133,9 +133,4 @@ public class GameBoard extends JPanel implements IBoard {
 //            System.out.println(actionEvt.getActionCommand() + " pressed");
         }
     }
-
-    public int scoreHandler() {
-        return gl.score;
-    }
-
 }
