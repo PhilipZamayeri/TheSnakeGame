@@ -15,7 +15,6 @@ public class GameLogic {
     protected Boolean haveEaten = false;
     protected char direction;
     protected boolean moved = true;
-    protected int point = 1;
     protected int score = 0;
 
     protected JLabel showScore = new JLabel("Score: " + score);
@@ -86,7 +85,7 @@ public class GameLogic {
     }
 
     public void addPoint() {
-        score += point;
+        score++;
         showScore.setText("Score: " + score);
     }
 }
