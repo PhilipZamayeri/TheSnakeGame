@@ -13,7 +13,8 @@ public class GuiHandler extends JFrame {
     protected JPanel mainPanel = new JPanel(new BorderLayout());
     protected BoardFactory bf = new BoardFactory();
     protected int totalScore; // ny
-    protected List<Integer> highScoreList = new ArrayList<>(); // ny
+//    protected List<Integer> highScoreList = new ArrayList<>(); // ny
+    IOHandler ioHandler = new IOHandler();
 
     public GuiHandler() {
         mainPanel.add(bf.createBoard(this, BoardFactory.Phase.START));
@@ -57,33 +58,33 @@ public class GuiHandler extends JFrame {
         this.totalScore = totalScore;
     }
 
-    public List<Integer> readScoreFromFile() {
-        String fileName = "src\\resources\\highscore.txt";
-        highScoreList.clear();
-
-        try (Scanner scanner = new Scanner(new File(fileName));) {
-
-            while(scanner.hasNext()) {
-                int number = scanner.nextInt();
-                highScoreList.add(number);
-            }
-
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        return highScoreList;
-    }
-
-    public void writeScoreToFile(int score) {
-        String fileName = "src\\resources\\highscore.txt";
-
-        try (PrintWriter out = new PrintWriter(new FileWriter(fileName, true));) {
-
-            out.println(score);
-
-        } catch(IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+//    public List<Integer> readScoreFromFile() {
+//        String fileName = "src\\resources\\highscore.txt";
+//        highScoreList.clear();
+//
+//        try (Scanner scanner = new Scanner(new File(fileName));) {
+//
+//            while(scanner.hasNext()) {
+//                int number = scanner.nextInt();
+//                highScoreList.add(number);
+//            }
+//
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//        }
+//        return highScoreList;
+//    }
+//
+//    public void writeScoreToFile(int score) {
+//        String fileName = "src\\resources\\highscore.txt";
+//
+//        try (PrintWriter out = new PrintWriter(new FileWriter(fileName, true));) {
+//
+//            out.println(score);
+//
+//        } catch(IOException e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
 }
 

@@ -54,7 +54,7 @@ public class GameOverBoard extends JPanel implements IBoard {
         totalScore = guiHandler.getTotalScore();
         scoreLabelTop.setText("GAME OVER!");
         scoreLabelBot.setText("Your score: " + totalScore);
-        highScores = guiHandler.readScoreFromFile();
+        highScores = guiHandler.ioHandler.readScoreFromFile(); //guiHandler.readScoreFromFile();
         printHighScore();
         newGame.addActionListener(e -> guiHandler.changeToGameBoard());
 

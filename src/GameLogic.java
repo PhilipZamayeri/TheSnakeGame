@@ -78,7 +78,8 @@ public class GameLogic {
             if (labels[position.row][position.column].getBackground() == Color.GREEN) {
                 guiHandler.setTotalScore(score); // ny
 //                guiHandler.highScoreList.add(score); // ny
-                guiHandler.writeScoreToFile(score);
+//                guiHandler.writeScoreToFile(score);
+                guiHandler.ioHandler.writeScoreToFile(score);
                 gameBoard.reset();
                 guiHandler.changeToGameOverBoard();
             }
@@ -86,7 +87,8 @@ public class GameLogic {
         } catch (IndexOutOfBoundsException e) {
             guiHandler.setTotalScore(score); // ny
 //            guiHandler.highScoreList.add(score); // ny
-            guiHandler.writeScoreToFile(score);
+//            guiHandler.writeScoreToFile(score);
+            guiHandler.ioHandler.writeScoreToFile(score);
             gameBoard.reset();
             guiHandler.changeToGameOverBoard();
 
