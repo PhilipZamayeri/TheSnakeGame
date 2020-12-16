@@ -64,7 +64,6 @@ public class GameBoard extends JPanel implements IBoard {
         add(scorePanel, BorderLayout.NORTH);
         add(basePanel, BorderLayout.CENTER);
         scorePanel.add(gl.showScore);
-//        guiHandler.setTotalScore(scoreHandler()); // ny
     }
 
     public void addLabels() {
@@ -130,7 +129,6 @@ public class GameBoard extends JPanel implements IBoard {
                     }
                     break;
             }
-//            System.out.println(actionEvt.getActionCommand() + " pressed");
         }
     }
 }

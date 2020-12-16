@@ -1,19 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class GuiHandler extends JFrame {
 
     protected JPanel mainPanel = new JPanel(new BorderLayout());
     protected BoardFactory bf = new BoardFactory();
-    protected int totalScore; // ny
-//    protected List<Integer> highScoreList = new ArrayList<>(); // ny
+    protected int totalScore;
     IOHandler ioHandler = new IOHandler();
 
     public GuiHandler() {
@@ -26,7 +18,6 @@ public class GuiHandler extends JFrame {
         setSize(500, 500);
         add(mainPanel);
         setVisible(true);
-
     }
 
     public void changeToGameBoard() {
@@ -57,34 +48,5 @@ public class GuiHandler extends JFrame {
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
     }
-
-//    public List<Integer> readScoreFromFile() {
-//        String fileName = "src\\resources\\highscore.txt";
-//        highScoreList.clear();
-//
-//        try (Scanner scanner = new Scanner(new File(fileName));) {
-//
-//            while(scanner.hasNext()) {
-//                int number = scanner.nextInt();
-//                highScoreList.add(number);
-//            }
-//
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//        }
-//        return highScoreList;
-//    }
-//
-//    public void writeScoreToFile(int score) {
-//        String fileName = "src\\resources\\highscore.txt";
-//
-//        try (PrintWriter out = new PrintWriter(new FileWriter(fileName, true));) {
-//
-//            out.println(score);
-//
-//        } catch(IOException e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
 }
 

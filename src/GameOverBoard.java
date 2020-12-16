@@ -1,8 +1,6 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.Font;
-import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,8 +13,8 @@ public class GameOverBoard extends JPanel implements IBoard {
     protected JLabel highScoreLabelSecond = new JLabel();
     protected JLabel highScoreLabelThird = new JLabel();
     protected JButton newGame = new JButton("Play again?");
-    protected int totalScore; // ny
-    protected List<Integer> highScores; // ny
+    protected int totalScore;
+    protected List<Integer> highScores;
     protected Font scoreFont = new Font("Monospaced", Font.BOLD, 18);
     protected Font gameOverFont = new Font("Monospaced", Font.BOLD, 28);
 
@@ -44,7 +42,7 @@ public class GameOverBoard extends JPanel implements IBoard {
 
         scoreLabelTop.setBounds(100, 25, 300, 50);
         scoreLabelBot.setBounds(100, 75, 300, 50);
-        allTimeHigh.setBounds(100,125, 300, 50);
+        allTimeHigh.setBounds(100, 125, 300, 50);
         highScoreLabelFirst.setBounds(100, 175, 300, 50);
         highScoreLabelSecond.setBounds(100, 225, 300, 50);
         highScoreLabelThird.setBounds(100, 275, 300, 50);
@@ -54,7 +52,7 @@ public class GameOverBoard extends JPanel implements IBoard {
         totalScore = guiHandler.getTotalScore();
         scoreLabelTop.setText("GAME OVER!");
         scoreLabelBot.setText("Your score: " + totalScore);
-        highScores = guiHandler.ioHandler.readScoreFromFile(); //guiHandler.readScoreFromFile();
+        highScores = guiHandler.ioHandler.readScoreFromFile();
         printHighScore();
         newGame.addActionListener(e -> guiHandler.changeToGameBoard());
 
@@ -65,14 +63,11 @@ public class GameOverBoard extends JPanel implements IBoard {
         add(highScoreLabelSecond);
         add(highScoreLabelThird);
         add(newGame);
-
-        printList(); // kan tas bort. Enbart för testning
     }
 
-    // ny
     public void printHighScore() {
         highScores.sort(Collections.reverseOrder());
-        highScoreLabelFirst.setText("1st place: " + highScores.get(0)); //  + " (" + LocalDate.now() + ")"
+        highScoreLabelFirst.setText("1st place: " + highScores.get(0));
         if (highScores.size() > 1) {
             highScoreLabelSecond.setText("2nd place: " + highScores.get(1));
         }
@@ -80,9 +75,4 @@ public class GameOverBoard extends JPanel implements IBoard {
             highScoreLabelThird.setText("3rd place: " + highScores.get(2));
         }
     }
-
-    public void printList() {
-        System.out.println(highScores);
-    }
-
 }

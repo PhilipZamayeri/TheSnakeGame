@@ -6,22 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Created by Karl Danielsson - JAVA 20B
- * Date: 2020-12-15
- * Time: 14:36
- * Project: TheSnakeGame
- */
 public class IOHandler {
 
-    public List<Integer> readScoreFromFile() { //List<Integer> highScoreList
+    public List<Integer> readScoreFromFile() {
         String fileName = "src\\resources\\highscore.txt";
         List<Integer> highScoreList = new ArrayList<>();
         highScoreList.clear();
 
         try (Scanner scanner = new Scanner(new File(fileName));) {
 
-            while(scanner.hasNext()) {
+            while (scanner.hasNext()) {
                 int number = scanner.nextInt();
                 highScoreList.add(number);
             }
@@ -39,7 +33,7 @@ public class IOHandler {
 
             out.println(score);
 
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
