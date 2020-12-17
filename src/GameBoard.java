@@ -49,7 +49,7 @@ public class GameBoard extends JPanel implements IBoard {
         timer = new Timer(speed, time);
         timer.start();
         gl.speed(speed, time);
-        pauseGame();
+        gl.pauseGame();
     }
 
     private void setKeyBindings() {
@@ -114,21 +114,21 @@ public class GameBoard extends JPanel implements IBoard {
         gl.addPoint();
     }
 
-    public void isPaused(char pauseStatus) {
-        if (pauseStatus == 'P' && !isPaused) {
-            isPaused = true;
-        } else if (pauseStatus == 'P' && isPaused) {
-            isPaused = false;
-        }
-    }
-
-    public void pauseGame() {
-        if (isPaused) {
-            timer.stop();
-        } else if (!isPaused) {
-            timer.start();
-        }
-    }
+//    public void isPaused(char pauseStatus) {
+//        if (pauseStatus == 'P' && !isPaused) {
+//            isPaused = true;
+//        } else if (pauseStatus == 'P' && isPaused) {
+//            isPaused = false;
+//        }
+//    }
+//
+//    public void pauseGame() {
+//        if (isPaused) {
+//            timer.stop();
+//        } else if (!isPaused) {
+//            timer.start();
+//        }
+//    }
 
     private class KeyAction extends AbstractAction {
         public KeyAction(String actionCommand) {
@@ -160,8 +160,8 @@ public class GameBoard extends JPanel implements IBoard {
                     break;
                 case VK_SPACE:
                     pauseStatus = 'P';
-                    isPaused(pauseStatus);
-                    pauseGame();
+                    gl.isPaused(pauseStatus);
+                    gl.pauseGame();
 
                     break;
             }

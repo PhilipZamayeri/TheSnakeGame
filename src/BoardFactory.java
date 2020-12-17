@@ -6,7 +6,7 @@ public class BoardFactory {
         return switch (phase) {
             case START -> new StartBoard(guiHandler);
             case GAME -> new GameBoard(guiHandler);
-            case GAME_OVER -> new GameOverBoard(guiHandler);
+            case GAME_OVER -> new GameOverBoard(guiHandler);    
         };
     }
 

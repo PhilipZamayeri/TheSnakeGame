@@ -113,21 +113,21 @@ public class GameLogic {
     }
 
 
-//    public void isPaused(char pauseStatus) {
+    public void isPaused(char pauseStatus) {
 
-//        if (pauseStatus == 'P' && !gameBoard.isPaused) {
-//            gameBoard.isPaused = true;
-//        } else if (pauseStatus == 'P' && gameBoard.isPaused) {
-//            gameBoard.isPaused = false;
-//        }
-//    }
-//
-//    public void pauseGame() {
-//        if (gameBoard.isPaused) {
-//            gameBoard.timer.stop();
-//        } else if (!gameBoard.isPaused) {
-//            gameBoard.timer.start();
-//        }
-//    }
+        if (pauseStatus == 'P' && !gameBoard.isPaused) {
+            gameBoard.isPaused = true;
+        } else if (pauseStatus == 'P' && gameBoard.isPaused) {
+            gameBoard.isPaused = false;
+        }
+    }
+
+    public void pauseGame() {
+        if (gameBoard.isPaused) {
+            gameBoard.timer.stop();
+        } else if (!gameBoard.isPaused) {
+            gameBoard.timer.start();
+        }
+    }
 
 }
