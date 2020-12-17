@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GuiHandler extends JFrame {
-
     protected JPanel mainPanel = new JPanel(new BorderLayout());
     protected BoardFactory bf = new BoardFactory();
 
@@ -17,7 +16,13 @@ public class GuiHandler extends JFrame {
         add(mainPanel);
         setVisible(true);
         setLocationRelativeTo(null);
+    }
 
+    public void changeToStartBoard() {
+        mainPanel.removeAll();
+        mainPanel.add(bf.createBoard(this, BoardFactory.Phase.START));
+        mainPanel.revalidate();
+        mainPanel.repaint();
     }
 
     public void changeToGameBoard() {
@@ -30,13 +35,6 @@ public class GuiHandler extends JFrame {
     public void changeToGameOverBoard() {
         mainPanel.removeAll();
         mainPanel.add(bf.createBoard(this, BoardFactory.Phase.GAME_OVER));
-        mainPanel.revalidate();
-        mainPanel.repaint();
-    }
-
-    public void changeToStartBoard() {
-        mainPanel.removeAll();
-        mainPanel.add(bf.createBoard(this, BoardFactory.Phase.START));
         mainPanel.revalidate();
         mainPanel.repaint();
     }

@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 public class GameBoard extends JPanel implements IBoard {
-
     protected GameLogic gl;
     protected JPanel scorePanel = new JPanel();
     protected JPanel basePanel = new JPanel();
